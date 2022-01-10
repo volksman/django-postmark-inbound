@@ -36,4 +36,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Topic :: Communications :: Email'
     ],
+    test_suite="runtests.runtests",
 )

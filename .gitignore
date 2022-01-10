@@ -6,3 +6,4 @@ media/
 dist/
 db.sqlite3
 *.egg*
+attachments/

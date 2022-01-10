@@ -4,5 +4,5 @@ from .views import InboundMailWebhook
 
 
 urlpatterns = [
-    url(r'^inbound', InboundMailWebhook.as_view())
+    url(r'^inbound', InboundMailWebhook.as_view(), name='inbound-webhook')
 ]

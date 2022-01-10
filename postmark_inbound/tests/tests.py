@@ -39,13 +39,13 @@ class TestBase64FileField(TestCase):
 
 class TestAutoDateTimeField(TestCase):
     valid_inputs = {
-        'Fri, 1 Aug 2014 16:45:32 -0400': datetime.datetime(2014, 8, 1, 20, 45, 32, tzinfo=timezone.UTC()),
-        'Fri, 01 Aug 2014 16:45:32 -04:00': datetime.datetime(2014, 8, 1, 20, 45, 32, tzinfo=timezone.UTC()),
-        '1:35pm, 1 Jan 2001': datetime.datetime(2001, 1, 1, 13, 35, tzinfo=timezone.UTC()),
-        '2001-01-01 13:00': datetime.datetime(2001, 1, 1, 13, 00, tzinfo=timezone.UTC()),
-        '13/1/2001 16:45:32': datetime.datetime(2001, 1, 13, 16, 45, 32, tzinfo=timezone.UTC()),
-        '1/13/2001 16:45:32': datetime.datetime(2001, 1, 13, 16, 45, 32, tzinfo=timezone.UTC()),
-        'Tuesday May 23, 1999 10:00pm': datetime.datetime(1999, 5, 23, 22, 0, tzinfo=timezone.UTC()),
+        'Fri, 1 Aug 2014 16:45:32 -0400': datetime.datetime(2014, 8, 1, 20, 45, 32, tzinfo=timezone.utc),
+        'Fri, 01 Aug 2014 16:45:32 -04:00': datetime.datetime(2014, 8, 1, 20, 45, 32, tzinfo=timezone.utc),
+        '1:35pm, 1 Jan 2001': datetime.datetime(2001, 1, 1, 13, 35, tzinfo=timezone.utc),
+        '2001-01-01 13:00': datetime.datetime(2001, 1, 1, 13, 00, tzinfo=timezone.utc),
+        '13/1/2001 16:45:32': datetime.datetime(2001, 1, 13, 16, 45, 32, tzinfo=timezone.utc),
+        '1/13/2001 16:45:32': datetime.datetime(2001, 1, 13, 16, 45, 32, tzinfo=timezone.utc),
+        'Tuesday May 23, 1999 10:00pm': datetime.datetime(1999, 5, 23, 22, 0, tzinfo=timezone.utc),
     }
     invalid_inputs = ['abc', '2/x/2015', '13/13/2015']
     field = AutoDateTimeField()

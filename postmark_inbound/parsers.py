@@ -3,8 +3,8 @@ import json
 import re
 
 from django.conf import settings
-
-from rest_framework.parsers import JSONParser, ParseError, six
+from django.utils import six
+from rest_framework.parsers import JSONParser, ParseError
 
 
 # Parser logic taken from vbabiy's djangorestframework-camel-case project

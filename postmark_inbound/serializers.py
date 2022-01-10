@@ -52,7 +52,9 @@ class Base64FileField(serializers.FileField):
             except:
                 self.fail('decode')
 
-            file_ext = guess_extension(magic.from_buffer(decoded_data, mime=True).decode('UTF8'), strict=True)
+            file_ext = guess_extension(magic.from_buffer(decoded_data, mime=True), strict=True)
+            if file_ext is None:
+                file_ext = 'unknown'
             file_name = ''.join([uuid.uuid4().hex, file_ext])
             data = ContentFile(decoded_data, name=file_name)
 
