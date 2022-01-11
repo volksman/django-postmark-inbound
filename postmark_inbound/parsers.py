@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 import re
+import six
 
 from django.conf import settings
-from django.utils import six
 from rest_framework.parsers import JSONParser, ParseError
 
 

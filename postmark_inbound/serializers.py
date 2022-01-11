@@ -2,7 +2,7 @@ import uuid
 from base64 import b64decode, b64encode
 from mimetypes import guess_extension
 
-from django.utils.six import string_types
+from six import string_types
 from django.core.files.base import ContentFile
 from django.utils.translation import ugettext_lazy as _
 
@@ -91,7 +91,7 @@ class InboundMailAttachmentSerializer(serializers.ModelSerializer):
 
 class InboundMailSerializer(serializers.ModelSerializer):
     date = AutoDateTimeField()
-    attachments = InboundMailAttachmentSerializer(many=True, required=False)
+    # attachments = InboundMailAttachmentSerializer(many=True, required=False)
     headers = InboundMailHeaderSerializer(many=True, required=False)
     from_full = InboundMailDetailSerializer()
     to_full = InboundMailDetailSerializer(many=True)
@@ -100,14 +100,14 @@ class InboundMailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InboundMail
-        fields = ('from_name', 'from_email', 'from_full', 'to_email', 'to_full', 'cc_email', 'cc_full', 'bcc_email', 'bcc_full', 'original_recipient', 'subject', 'message_id', 'reply_to', 'mailbox_hash', 'date', 'text_body', 'html_body', 'stripped_text_reply', 'tag', 'headers', 'attachments')
+        fields = ('from_name', 'from_email', 'from_full', 'to_email', 'to_full', 'cc_email', 'cc_full', 'bcc_email', 'bcc_full', 'original_recipient', 'subject', 'message_id', 'reply_to', 'mailbox_hash', 'date', 'text_body', 'html_body', 'stripped_text_reply', 'tag', 'headers')
         extra_kwargs = {
             'date': {'input_formats': ['%a, %d %b %Y %H:%M:%S %z']}
         }
 
     def create(self, validated_data):
         header_data = validated_data.pop('headers')
-        attachment_data = validated_data.pop('attachments')
+        # attachment_data = validated_data.pop('attachments')
         from_full_data = validated_data.pop('from_full')
         to_full_data = validated_data.pop('to_full')
         cc_full_data = validated_data.pop('cc_full')
@@ -120,7 +120,7 @@ class InboundMailSerializer(serializers.ModelSerializer):
         rel_mapper = InboundMailRelationMapper(parent_mail=inbound_mail)
 
         # Create attachments
-        rel_mapper.data(attachment_data).create_for(InboundMailAttachment)
+        # rel_mapper.data(attachment_data).create_for(InboundMailAttachment)
 
         # Create headers
         rel_mapper.data(header_data).create_for(InboundMailHeader)
