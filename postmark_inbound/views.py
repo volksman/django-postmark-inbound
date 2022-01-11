@@ -2,9 +2,11 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.utils.module_loading import import_string
+
 from .serializers import InboundMailSerializer
 from .parsers import PostmarkJSONParser
-from .signals import inbound_mail_received
+from .signals import inbound_mail_received, inbound_mail_filtered
 from .settings import inbound_mail_options as option
 
 
@@ -34,6 +36,14 @@ class InboundMailWebhook(APIView):
         serializer.is_valid(raise_exception=True)
 
         mail_data = serializer.validated_data
+        if option.SAVE_FILTER and not import_string(option.SAVE_FILTER)(mail_data):
+            inbound_mail_filtered.send_robust(
+                sender=self.__class__,
+                mail_data=mail_data,
+            )
+            success_msg = {'detail': 'Inbound mail received but filtered. Thanks Postmark!'}
+            return Response(success_msg, status=status.HTTP_202_ACCEPTED)
+
         mail_object = serializer.save() if option.SAVE_MAIL_TO_DB else None
 
         # Send signal notifying that a new inbound mail has been received
