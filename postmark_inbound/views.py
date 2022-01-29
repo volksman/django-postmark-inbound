@@ -17,11 +17,9 @@ class PostmarkPermission(permissions.BasePermission):
     postmark_inbound_ip = option.IP_WHITE_LIST
 
     def has_permission(self, request, view):
-        print("Checking postmark IP")
         ip_forward = request.META.get('HTTP_X_FORWARDED_FOR')
-        print("ip_forward: ", ip_forward)
         if ip_forward:
-            remote_addr = ip_forward.split(",")[-1]
+            remote_addr = ip_forward.split(",")[0]
         else:
             remote_addr = (request.META.get('HTTP_X_REAL_IP') or
                         request.META.get('REMOTE_ADDR'))
