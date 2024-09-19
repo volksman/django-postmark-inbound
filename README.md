@@ -5,7 +5,7 @@ Inbound mail is received from Postmark as JSON, serialized and saved to the data
 
 # Requirements
 
-* Django (1.8, 1.9)
+* Django (1.8+)
 * Django Rest Framework (3.3)
 * Python-Dateutil (2.4.2)
 * Python-Magic (0.4.10)
