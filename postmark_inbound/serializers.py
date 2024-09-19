@@ -4,7 +4,7 @@ from mimetypes import guess_extension
 
 from six import string_types
 from django.core.files.base import ContentFile
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 import magic
 from dateutil.parser import parse
