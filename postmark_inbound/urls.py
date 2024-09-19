@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .views import InboundMailWebhook
 
 
 urlpatterns = [
-    url(r'^inbound', InboundMailWebhook.as_view(), name='inbound-webhook')
+    path('inbound/', InboundMailWebhook.as_view(), name='inbound-webhook')
 ]
